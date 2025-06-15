@@ -14,4 +14,6 @@ public interface CarsRepository extends JpaRepository<Cars, Long> {
     List<Cars> Id(Long id);
     List<Cars> findByAvailableTrue();
 
+    List<Cars> findByCarsStationsId(Long carsStationsId);
+
 }

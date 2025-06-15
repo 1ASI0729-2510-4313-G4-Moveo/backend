@@ -5,11 +5,14 @@ import java.util.Date;
 public record CreateRentCommand(Date starTime, Date endTime ) {
 
     public CreateRentCommand {
-        if (starTime.before(endTime)) {
-            throw new IllegalArgumentException("Start time must be after End time");
+        if (starTime == null) {
+            throw new IllegalArgumentException("Start time cannot be null");
         }
-        if (endTime.after(starTime)) {
-            throw new IllegalArgumentException("End time must be before Star time");
+        if (endTime == null) {
+            throw new IllegalArgumentException("End time cannot be null");
+        }
+        if (starTime.after(endTime)) {
+            throw new IllegalArgumentException("Start time must be before End time");
         }
     }
 

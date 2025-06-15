@@ -35,5 +35,6 @@ public class Rent {
     public Rent(CreateRentCommand command){
         this.starTime = command.starTime();
         this.endTime = command.endTime();
+        // TODO: Set PaymentId, UserId, and CarsStationsId from command when available
     }
 }

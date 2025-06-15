@@ -10,4 +10,6 @@ public interface RentsRepository extends JpaRepository<Rent, Long> {
     boolean existsByStarTimeAndEndTime(Date starTime, Date endTime);
 
     List<Rent> Id(Long id);
+
+    List<Rent> findByCarIdIn(List<Long> carIds);
 }
