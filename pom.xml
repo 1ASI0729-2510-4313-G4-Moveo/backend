@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.moveo.api</groupId>
-    <artifactId>Moveo</artifactId>
+    <artifactId>moveo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Moveo</name>
-    <description>Moveo</description>
+    <name>moveo</name>
+    <description>moveo</description>
     <url/>
     <licenses>
         <license/>
