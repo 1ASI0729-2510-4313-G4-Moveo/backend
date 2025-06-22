@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.moveo.api</groupId>
-    <artifactId>Moveo Backend API</artifactId>
+    <artifactId>moveo-backend-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Test</name>
     <description>Test</description>
