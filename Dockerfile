@@ -1,12 +1,10 @@
-FROM openjdk:24-jdk AS build
+FROM eclipse-temurin:24-jdk
 
 WORKDIR /app
 
 COPY . .
 
-RUN apt-get update && apt-get install -y maven
-
 RUN mvn clean package -DskipTests
 
+# Expone el puerto por defecto de Spring Boot
 EXPOSE 8080
-
