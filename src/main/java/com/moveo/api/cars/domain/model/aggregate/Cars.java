@@ -14,7 +14,7 @@ import java.util.Date;
 public class Cars extends AuditableAbstractAggregateRoot<Cars> {
 
     @Column(nullable = false)
-    private String condition;
+    private String conditions;
 
     @Column(nullable = false)
     private String available;
@@ -33,6 +33,6 @@ public class Cars extends AuditableAbstractAggregateRoot<Cars> {
 
     public Cars(CreateCarCommand command) {
         this.available = command.available();
-        this.condition = command.condition();
+        this.conditions = command.conditions();
     }
 }
