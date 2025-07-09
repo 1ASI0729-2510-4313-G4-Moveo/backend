@@ -1,4 +1,6 @@
 package com.moveo.api.iam.interfaces.rest.resources;
 
-public record UserResource(Long id, String username, String password, String email, String type, String phoneNumber ) {
+import java.util.List;
+
+public record UserResource(Long id, String email, List<String> roles) {
 }

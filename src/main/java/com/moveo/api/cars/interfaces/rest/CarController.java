@@ -71,5 +71,6 @@ public class CarController {
         return cars.map(
                 source -> ResponseEntity.ok(CarResourceFromEntityAssembler.toResourceFromEntity(source))
         ).orElseGet(() -> ResponseEntity.notFound().build());
+
     }
 }

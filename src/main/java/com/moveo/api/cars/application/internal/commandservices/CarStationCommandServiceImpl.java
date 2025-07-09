@@ -19,7 +19,7 @@ public class CarStationCommandServiceImpl implements CarStationCommandService {
 
     @Override
     public Optional<CarStation> handle(CreateCarStationCommand command) {
-        if (carStationRepository.existsByNameAndAddressAndLatitudeAndLongitude(command.name(), command.address(), command.latitude(), command.longitude())) {
+        if (carStationRepository.existsByCarIdAndStationId(command.carId(), command.stationId())) {
             throw new IllegalArgumentException("Car Station already exists with same atributes");
         }
 
