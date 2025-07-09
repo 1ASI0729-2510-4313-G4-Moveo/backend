@@ -35,7 +35,7 @@ public class UserQueryServiceImpl implements UserQueryService {
      */
     @Override
     public List<User> handle(GetAllUsersQuery query) {
-        return userRepository.findAll();
+        return userRepository.findAllWithTypes();
     }
 
     /**
@@ -46,7 +46,7 @@ public class UserQueryServiceImpl implements UserQueryService {
      */
     @Override
     public Optional<User> handle(GetUserByIdQuery query) {
-        return userRepository.findById(query.userId());
+        return userRepository.findByIdWithTypes(query.userId());
     }
 
     /**
@@ -57,6 +57,6 @@ public class UserQueryServiceImpl implements UserQueryService {
      */
     @Override
     public Optional<User> handle(GetUserByEmailQuery query) {
-        return userRepository.findByEmail(query.email());
+        return userRepository.findByEmailWithTypes(query.email());
     }
 }

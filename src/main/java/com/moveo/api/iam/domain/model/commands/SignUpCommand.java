@@ -1,7 +1,7 @@
 package com.moveo.api.iam.domain.model.commands;
 
 import com.moveo.api.iam.domain.model.aggregates.User;
-import com.moveo.api.iam.domain.model.entities.Role;
+import com.moveo.api.iam.domain.model.entities.Type;
 
 import java.util.List;
 
@@ -14,9 +14,9 @@ import java.util.List;
  * @param password the password of the user
  * @param name the name of the user
  * @param phone the phone of the user
- * @param roles the roles of the user
+ * @param types the types of the user
  *
  * @see User
  */
-public record SignUpCommand(String email, String password, String name, String phone, List<Role> roles) {
+public record SignUpCommand(String email, String password, String name, String phone, List<Type> types) {
 }

@@ -1,6 +1,6 @@
 package com.moveo.api.iam.domain.model.aggregates;
 
-import com.moveo.api.iam.domain.model.entities.Role;
+import com.moveo.api.iam.domain.model.entities.Type;
 import com.moveo.api.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -39,18 +39,18 @@ public class User extends AuditableAbstractAggregateRoot<User> {
     private String phone;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(	name = "user_roles",
+    @JoinTable(	name = "user_types",
                 joinColumns = @JoinColumn(name = "user_id"),
-                inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles;
+                inverseJoinColumns = @JoinColumn(name = "type_id"))
+    private Set<Type> types;
 
     public User() {
-        this.roles = new HashSet<>();
+        this.types = new HashSet<>();
     }
     public User(String email, String password) {
         this.email = email;
         this.password = password;
-        this.roles = new HashSet<>();
+        this.types = new HashSet<>();
     }
 
     public User(String email, String password, String name, String phone) {
@@ -58,37 +58,37 @@ public class User extends AuditableAbstractAggregateRoot<User> {
         this.password = password;
         this.name = name;
         this.phone = phone;
-        this.roles = new HashSet<>();
+        this.types = new HashSet<>();
     }
 
-    public User(String email, String password, List<Role> roles) {
+    public User(String email, String password, List<Type> types) {
         this(email, password);
-        addRoles(roles);
+        addTypes(types);
     }
 
-    public User(String email, String password, String name, String phone, List<Role> roles) {
+    public User(String email, String password, String name, String phone, List<Type> types) {
         this(email, password, name, phone);
-        addRoles(roles);
+        addTypes(types);
     }
 
     /**
-     * Add a role to the user
-     * @param role the role to add
-     * @return the user with the added role
+     * Add a type to the user
+     * @param type the type to add
+     * @return the user with the added type
      */
-    public User addRole(Role role) {
-        this.roles.add(role);
+    public User addType(Type type) {
+        this.types.add(type);
         return this;
     }
 
     /**
-     * Add a list of roles to the user
-     * @param roles the list of roles to add
-     * @return the user with the added roles
+     * Add a list of types to the user
+     * @param types the list of types to add
+     * @return the user with the added types
      */
-    public User addRoles(List<Role> roles) {
-        var validatedRoleSet = Role.validateRoleSet(roles);
-        this.roles.addAll(validatedRoleSet);
+    public User addTypes(List<Type> types) {
+        var validatedTypeSet = Type.validateTypeSet(types);
+        this.types.addAll(validatedTypeSet);
         return this;
     }
 

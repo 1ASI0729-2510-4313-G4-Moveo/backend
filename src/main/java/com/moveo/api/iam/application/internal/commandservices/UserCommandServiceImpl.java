@@ -6,7 +6,7 @@ import com.moveo.api.iam.domain.model.commands.SignUpCommand;
 import com.moveo.api.iam.domain.services.UserCommandService;
 import com.moveo.api.iam.application.internal.outboundservices.hashing.HashingService;
 import com.moveo.api.iam.application.internal.outboundservices.tokens.TokenService;
-import com.moveo.api.iam.infrastructure.persistence.jpa.repositories.RoleRepository;
+import com.moveo.api.iam.infrastructure.persistence.jpa.repositories.TypeRepository;
 import com.moveo.api.iam.infrastructure.persistence.jpa.repositories.UserRepository;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.springframework.stereotype.Service;
@@ -27,13 +27,13 @@ public class UserCommandServiceImpl implements UserCommandService {
     private final HashingService hashingService;
     private final TokenService tokenService;
 
-    private final RoleRepository roleRepository;
+    private final TypeRepository typeRepository;
 
-    public UserCommandServiceImpl(UserRepository userRepository, HashingService hashingService, TokenService tokenService, RoleRepository roleRepository) {
+    public UserCommandServiceImpl(UserRepository userRepository, HashingService hashingService, TokenService tokenService, TypeRepository typeRepository) {
         this.userRepository = userRepository;
         this.hashingService = hashingService;
         this.tokenService = tokenService;
-        this.roleRepository = roleRepository;
+        this.typeRepository = typeRepository;
     }
 
     /**
@@ -68,8 +68,8 @@ public class UserCommandServiceImpl implements UserCommandService {
     public Optional<User> handle(SignUpCommand command) {
         if (userRepository.existsByEmail(command.email()))
             throw new RuntimeException("email already exists");
-        var roles = command.roles().stream().map(role -> roleRepository.findByName(role.getName()).orElseThrow(() -> new RuntimeException("Role name not found"))).toList();
-        var user = new User(command.email(), hashingService.encode(command.password()), command.name(), command.phone(), roles);
+        var types = command.types().stream().map(type -> typeRepository.findByName(type.getName()).orElseThrow(() -> new RuntimeException("Type name not found"))).toList();
+        var user = new User(command.email(), hashingService.encode(command.password()), command.name(), command.phone(), types);
         userRepository.save(user);
         return userRepository.findByEmail(command.email());
     }

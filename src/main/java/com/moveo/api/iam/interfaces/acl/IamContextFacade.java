@@ -1,7 +1,7 @@
 package com.moveo.api.iam.interfaces.acl;
 
 import com.moveo.api.iam.domain.model.commands.SignUpCommand;
-import com.moveo.api.iam.domain.model.entities.Role;
+import com.moveo.api.iam.domain.model.entities.Type;
 import com.moveo.api.iam.domain.model.queries.GetUserByEmailQuery;
 import com.moveo.api.iam.domain.model.queries.GetUserByIdQuery;
 import com.moveo.api.iam.domain.services.UserCommandService;
@@ -36,22 +36,22 @@ public class IamContextFacade {
      * @return The id of the created user.
      */
     public Long createUser(String email, String password) {
-        var signUpCommand = new SignUpCommand(email, password, null, null, List.of(Role.getDefaultRole()));
+        var signUpCommand = new SignUpCommand(email, password, null, null, List.of(Type.getDefaultType()));
         var result = userCommandService.handle(signUpCommand);
         if (result.isEmpty()) return 0L;
         return result.get().getId();
     }
 
     /**
-     * Creates a user with the given email, password and roles.
+     * Creates a user with the given email, password and types.
      * @param email The email of the user.
      * @param password The password of the user.
-     * @param roleNames The names of the roles of the user. When a role does not exist, it is ignored.
+     * @param typeNames The names of the types of the user. When a type does not exist, it is ignored.
      * @return The id of the created user.
      */
-    public Long createUser(String email, String password, List<String> roleNames) {
-        var roles = roleNames != null ? roleNames.stream().map(Role::toRoleFromName).toList() : new ArrayList<Role>();
-        var signUpCommand = new SignUpCommand(email, password, null, null, roles);
+    public Long createUser(String email, String password, List<String> typeNames) {
+        var types = typeNames != null ? typeNames.stream().map(Type::toTypeFromName).toList() : new ArrayList<Type>();
+        var signUpCommand = new SignUpCommand(email, password, null, null, types);
         var result = userCommandService.handle(signUpCommand);
         if (result.isEmpty()) return 0L;
         return result.get().getId();
