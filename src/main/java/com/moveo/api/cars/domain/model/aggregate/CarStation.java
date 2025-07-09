@@ -10,24 +10,15 @@ import lombok.Getter;
 public class CarStation extends AuditableAbstractAggregateRoot<CarStation> {
 
     @Column(nullable = false)
-    private String name;
+    private Long stationId;
 
     @Column(nullable = false)
-    private String address;
-
-    @Column(nullable = false)
-    private Float latitude;
-
-    @Column(nullable = false)
-    private Float longitude;
+    private Long carId;
 
     protected CarStation() {};
 
     public CarStation(CreateCarStationCommand command) {
-        this.name = command.name();
-        this.address = command.address();
-        this.latitude = command.latitude();
-        this.longitude = command.longitude();
+        this.stationId = command.carId();
+        this.carId = command.stationId();
     }
-
 }

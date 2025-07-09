@@ -1,6 +1,7 @@
 package com.moveo.api.cars.application.internal.queryservices;
 
 import com.moveo.api.cars.domain.model.aggregate.CarStation;
+import com.moveo.api.cars.domain.model.queries.GetAllCarStationByCarIdQuery;
 import com.moveo.api.cars.domain.model.queries.GetAllCarStationsQuery;
 import com.moveo.api.cars.domain.model.queries.GetCarStationByIdQuery;
 import com.moveo.api.cars.domain.services.CarStationQueryService;
@@ -27,5 +28,10 @@ public class CarStationQueryServiceImpl implements CarStationQueryService {
     @Override
     public Optional<CarStation> handle(GetCarStationByIdQuery query) {
         return this.carStationRepository.findById(query.id());
+    }
+
+    @Override
+    public List<CarStation> handle(GetAllCarStationByCarIdQuery query) {
+        return this.carStationRepository.findByCarId(query.carId());
     }
 }

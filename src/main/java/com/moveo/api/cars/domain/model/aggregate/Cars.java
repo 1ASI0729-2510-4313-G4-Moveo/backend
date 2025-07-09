@@ -19,9 +19,6 @@ public class Cars extends AuditableAbstractAggregateRoot<Cars> {
     @Column(nullable = false)
     private String available;
 
-    @Column(nullable = false)
-    private Long carsStationsId;
-
     @CreatedDate
     private Date createdAt;
 
