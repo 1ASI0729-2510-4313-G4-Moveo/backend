@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface CarsRepository extends JpaRepository<Cars, Long> {
 
-    boolean existsByAvailableAndCondition(String available, String condition);
+    boolean existsByAvailableAndConditions(String available, String conditions);
 
     List<Cars> Id(Long id);
     List<Cars> findByAvailableTrue();

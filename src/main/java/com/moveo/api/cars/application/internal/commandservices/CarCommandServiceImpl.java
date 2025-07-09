@@ -19,7 +19,7 @@ public class CarCommandServiceImpl implements CarCommandService {
 
     @Override
     public Optional<Cars> handle(CreateCarCommand command) {
-        if (carsRepository.existsByAvailableAndCondition(command.available(), command.condition())) {
+        if (carsRepository.existsByAvailableAndConditions(command.available(), command.conditions())) {
             throw new IllegalArgumentException("Car already exists with same condition and available register");
         }
         var cars = new Cars(command);
