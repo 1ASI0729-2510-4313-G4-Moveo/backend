@@ -6,6 +6,7 @@ import com.moveo.api.iam.infrastructure.tokens.jwt.BearerTokenService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -92,14 +93,13 @@ public class WebSecurityConfiguration {
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors(configurer -> configurer.configurationSource(request -> {
+        http.cors(configurer -> configurer.configurationSource(request_ -> {
             var cors = new CorsConfiguration();
             cors.setAllowedOrigins(List.of("*"));
             cors.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
             cors.setAllowedHeaders(List.of("*"));
             return cors;
         }));
-
         http.csrf(csrfConfigurer -> csrfConfigurer.disable())
                 .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(unauthorizedRequestHandler))
                 .sessionManagement( customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -110,9 +110,25 @@ public class WebSecurityConfiguration {
                                 "/swagger-ui.html",
                                 "/swagger-ui/**",
                                 "/swagger-resources/**",
-                                "/webjars/**").permitAll()
-                        .anyRequest().authenticated());
-        http.authenticationProvider(authenticationProvider());
+                                "/webjars/**",
+                                "/api/v1/cars/test/public"
+                        ).permitAll()
+                        .requestMatchers(HttpMethod.GET,
+                                "/api/v1/cars",
+                                "/api/v1/cars/**",
+                                "/api/v1/carStation",
+                                "/api/v1/carStation/**",
+                                "/api/v1/ratings",
+                                "/api/v1/ratings/**",
+                                "/api/v1/rent",
+                                "/api/v1/rent/**",
+                                "/api/payments",
+                                "/api/payments/**",
+                                "/api/paymentInformation",
+                                "/api/paymentInformation/**"
+                        ).permitAll()
+                        .anyRequest().authenticated())
+                .authenticationProvider(authenticationProvider());
         http.addFilterBefore(authorizationRequestFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
 
